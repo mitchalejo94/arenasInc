@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+app.use(express.json());
 
 const db = require("./models");
 
@@ -7,9 +8,6 @@ const db = require("./models");
 
 const contactRouter = require("./routes/Contact");
 app.use("/contact", contactRouter);
-
-// const postRouter = require("./routes/Posts");
-// app.use("/Posts", postRouter);
 
 db.sequelize.sync().then(() => {
   app.listen(3003, () => {
