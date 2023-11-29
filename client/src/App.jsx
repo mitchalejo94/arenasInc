@@ -1,26 +1,17 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import Contact from "./components/Contact";
+import ContactForm from "./components/ContactForm";
 function App() {
-  const [listOfContact, setListOfContact] = useState([]);
-
-  useEffect(() => {
-    axios.get("http://localhost:3003/Contact").then((response) => {
-      setListOfContact(response.data);
-    });
-  }, []);
   return (
     <>
-      <div>
-        {listOfContact.map((value, key) => {
-          return (
-            <div key={key}>
-              <div> {value.message}</div>
-              <div> {value.name}</div>
-            </div>
-          );
-        })}
-      </div>
+      <Router>
+        <Link to="/contactForm">Contact Form</Link>
+        <Link to="/contactList">Contact List</Link>
+        <Routes>
+          <Route path="/contactList" element={<Contact />}></Route>
+          <Route path="/contactForm" element={<ContactForm />}></Route>
+        </Routes>
+      </Router>
     </>
   );
 }
