@@ -10,6 +10,7 @@ function ContactForm() {
   const initialValues = {
     name: "",
     email: "",
+    phoneNumber: "",
     cityState: "",
     message: "",
   };
@@ -17,14 +18,14 @@ function ContactForm() {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required(),
     email: Yup.string().email("Valid Email is required").required(),
-
+    phoneNumber: Yup.string().required(),
     cityState: Yup.string().required(),
     message: Yup.string().required(),
   });
 
   const onSubmit = (data) => {
     axios.post("http://localhost:3003/contact", data).then((response) => {
-      navigate("/contactList");
+      navigate("/contactList"); // change this later to "Thank you for submitting, redirect to Home page?. Or include alert message that Form was submitted" page.
     });
   };
 
@@ -48,6 +49,14 @@ function ContactForm() {
             <label>Email: </label>
             <ErrorMessage name="email" component="span" />
             <Field id="inputContactForm" name="email" placeholder="Email..." />
+
+            <label>Phone Number: </label>
+            <ErrorMessage name="phoneNumber" component="span" />
+            <Field
+              id="inputContactForm"
+              name="phoneNumber"
+              placeholder="Phone Number..."
+            />
             <label>City & State: </label>
             <ErrorMessage name="cityState" component="span" />
             <Field
@@ -55,6 +64,7 @@ function ContactForm() {
               name="cityState"
               placeholder="City and State..."
             />
+
             <label>Description: </label>
             <ErrorMessage name="message" component="span" />
             <Field
