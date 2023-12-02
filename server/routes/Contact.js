@@ -24,14 +24,26 @@ router.post("/", async (req, res) => {
 });
 
 //Delete Route
+// router.delete("/:contactId", async (req, res) => {
+//   const id = req.body.contactId;
+//   const contactIdDestroy = await Contact.findByPk(id);
+//   res.json(contactIdDestroy);
+// });
 router.delete("/:contactId", async (req, res) => {
-  const contactId = req.body.contactId;
-  await Contact.destroy({
-    where: {
-      id: contactId,
-    },
-  });
-  res.json("deleted success");
+  const contactId = req.params.contactId; // Fetch the contactId from URL parameter
+
+  try {
+    const contact = await Contact.findByPk(contactId);
+
+    if (!contact) {
+      return res.status(404).json({ error: "Contact not found" });
+    }
+
+    await contact.destroy();
+    res.json("deleted success");
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 module.exports = router;
