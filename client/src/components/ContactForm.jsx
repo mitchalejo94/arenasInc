@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 function ContactForm() {
   let navigate = useNavigate();
+  let [submitted, setSubmitted] = useState(false);
 
   const initialValues = {
     name: "",
@@ -23,9 +24,16 @@ function ContactForm() {
     message: Yup.string().required(),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data, { resetForm }) => {
     axios.post("http://localhost:3003/contact", data).then((response) => {
-      navigate("/contactList"); // change this later to "Thank you for submitting, redirect to Home page?. Or include alert message that Form was submitted" page.
+      setSubmitted(true);
+      resetForm();
+      setTimeout(() => {
+        setSubmitted(false);
+        // navigate("/contactList"); // change this later to "Thank you for submitting, redirect to Home page?. Or include alert message that Form was submitted" page.
+      }, 9000).finally(() => {
+        setSubmitted(false);
+      });
     });
   };
 
@@ -38,42 +46,56 @@ function ContactForm() {
           onSubmit={onSubmit}
           validationSchema={validationSchema}
         >
-          <Form className="formContainer">
-            <label>Name: </label>
-            <ErrorMessage name="postText" component="span" />
-            <Field
-              id="inputContactForm"
-              name="name"
-              placeholder="First and last name..."
-            />
-            <label>Email: </label>
-            <ErrorMessage name="email" component="span" />
-            <Field id="inputContactForm" name="email" placeholder="Email..." />
-
-            <label>Phone Number: </label>
-            <ErrorMessage name="phoneNumber" component="span" />
-            <Field
-              id="inputContactForm"
-              name="phoneNumber"
-              placeholder="Phone Number..."
-            />
-            <label>City & State: </label>
-            <ErrorMessage name="cityState" component="span" />
-            <Field
-              id="inputContactForm"
-              name="cityState"
-              placeholder="City and State..."
-            />
-
-            <label>Description: </label>
-            <ErrorMessage name="message" component="span" />
-            <Field
-              id="inputContactForm"
-              name="message"
-              placeholder="Project description..."
-            />
-            <button type="submit">Submit contact information</button>
-          </Form>
+          {() => (
+            <Form className="formContainer">
+              {submitted && (
+                <div className="alert">Thank you for submitting</div>
+              )}
+              <div className="formGroup">
+                <label htmlFor="name">Name:</label>
+                <Field
+                  id="name"
+                  name="name"
+                  placeholder="First and last name..."
+                />
+                <ErrorMessage name="name" component="span" />
+              </div>
+              <div className="formGroup">
+                <label htmlFor="email">Email:</label>
+                <Field id="email" name="email" placeholder="Email..." />
+                <ErrorMessage name="email" component="span" />
+              </div>
+              <div className="formGroup">
+                <label htmlFor="phoneNumber">Phone Number:</label>
+                <Field
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  placeholder="Phone number..."
+                />
+                <ErrorMessage name="phoneNumber" component="span" />
+              </div>
+              <div className="formGroup">
+                <label htmlFor="cityState">City & State:</label>
+                <Field
+                  id="cityState"
+                  name="cityState"
+                  placeholder="City and State..."
+                />
+                <ErrorMessage name="cityState" component="span" />
+              </div>
+              <div className="formGroup">
+                <label htmlFor="message">Description:</label>
+                <Field
+                  // as="textarea"
+                  id="message"
+                  name="message"
+                  placeholder="Project description..."
+                />
+                <ErrorMessage name="message" component="span" />
+              </div>
+              <button type="submit">Submit contact information</button>
+            </Form>
+          )}
         </Formik>
       </div>
     </>
