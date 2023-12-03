@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 function ContactForm() {
-  let navigate = useNavigate();
   let [submitted, setSubmitted] = useState(false);
 
   const initialValues = {
@@ -25,22 +23,21 @@ function ContactForm() {
   });
 
   const onSubmit = (data, { resetForm }) => {
-    axios.post("http://localhost:3003/contact", data).then((response) => {
-      setSubmitted(true);
-      resetForm();
-      setTimeout(() => {
-        setSubmitted(false);
-        // navigate("/contactList"); // change this later to "Thank you for submitting, redirect to Home page?. Or include alert message that Form was submitted" page.
-      }, 9000).finally(() => {
-        setSubmitted(false);
+    axios
+      .post("http://localhost:3003/contact", data)
+      .then((response) => {
+        setSubmitted(true);
+        resetForm();
+      })
+      .catch((error) => {
+        console.error("Error submitting form:", error);
       });
-    });
   };
 
   return (
     <>
       <div className="contactFormPage">
-        <h1>Contact us for an estimate</h1>
+        <h1>Contact us for an Estimate!!!</h1>
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
@@ -49,7 +46,9 @@ function ContactForm() {
           {() => (
             <Form className="formContainer">
               {submitted && (
-                <div className="alert">Thank you for submitting</div>
+                <div className="alert">
+                  Thank you for submitting, We will get back to you ASAP.
+                </div>
               )}
               <div className="formGroup">
                 <label htmlFor="name">Name:</label>

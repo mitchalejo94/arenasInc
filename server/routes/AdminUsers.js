@@ -20,4 +20,32 @@ router.post("/", async (req, res) => {
   }
 });
 
+//Login Route
+
+router.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const adminUser = await AdminUsers.findOne({
+      where: { username: username },
+    });
+
+    if (!adminUser) {
+      return res.status(404).json({ error: "AdminUser doesn't exist" });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, adminUser.password);
+
+    if (!passwordMatch)
+      return res
+        .status(401)
+        .json({ error: "Wrong username and password combination" });
+    res.json("Successfully logged in");
+
+    // Passwords match - successful login
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 module.exports = router;
