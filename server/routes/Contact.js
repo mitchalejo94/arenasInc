@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const { Contact } = require("../models");
+const { validateToken } = require("../middlewares/AuthMiddleware");
 
 //Routers
 //GET All = main user
-router.get("/", async (req, res) => {
+router.get("/", validateToken, async (req, res) => {
   try {
     const contactList = await Contact.findAll();
     res.json(contactList);

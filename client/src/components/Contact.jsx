@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 function Contact() {
   const [listOfContact, setListOfContact] = useState([]);
-
+  let navigate = useNavigate();
   useEffect(() => {
-    axios.get("http://localhost:3003/Contact").then((response) => {
-      setListOfContact(response.data);
-    });
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (accessToken) {
+      axios
+        .get("http://localhost:3003/Contact", {
+          headers: {
+            accessToken: accessToken, // Pass the token in the request headers
+          },
+        })
+        .then((response) => {
+          setListOfContact(response.data);
+        })
+        .catch((error) => {});
+    } else {
+      window.alert("Please log in to view the contact list.");
+      navigate("/adminUsers/login");
+    }
   }, []);
+
   return (
     <div>
       {listOfContact.map((value, key) => {

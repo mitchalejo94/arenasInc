@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  let navigate = useNavigate();
   const login = () => {
     const data = { username: username, password: password };
     axios
@@ -15,6 +16,7 @@ function Login() {
           alert(response.data.error);
         } else {
           localStorage.setItem("accessToken", response.data);
+          navigate("/contactList");
         }
       });
   };
