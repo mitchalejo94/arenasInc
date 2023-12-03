@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { AdminUsers } = require("../models");
 const bcrypt = require("bcrypt");
+const { sign } = require("jsonwebtoken");
 
 //POST - Only admin User.
 router.post("/", async (req, res) => {
@@ -25,6 +26,7 @@ router.post("/", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
+
     const adminUser = await AdminUsers.findOne({
       where: { username: username },
     });
@@ -39,7 +41,16 @@ router.post("/login", async (req, res) => {
       return res
         .status(401)
         .json({ error: "Wrong username and password combination" });
-    res.json("Successfully logged in");
+
+    const accessToken = sign(
+      {
+        username: adminUser.username,
+        id: adminUser.id,
+      },
+      "shhsecret"
+    );
+
+    res.json(accessToken);
 
     // Passwords match - successful login
   } catch (error) {

@@ -10,9 +10,15 @@ function Login() {
     axios
       .post("http://localhost:3003/adminUsers/login", data)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
+        if (response.data.error) {
+          alert(response.data.error);
+        } else {
+          localStorage.setItem("accessToken", response.data);
+        }
       });
   };
+
   return (
     <div>
       <input
