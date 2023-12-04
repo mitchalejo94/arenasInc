@@ -23,14 +23,19 @@ function Login() {
 
   return (
     <div>
+      <h1>Login Page</h1>
+      <label htmlFor="message">Username:</label>
       <input
         type="text"
+        placeholder="Username..."
         onChange={(event) => {
           setUsername(event.target.value);
         }}
       />
+      <label htmlFor="message">Password:</label>
       <input
         type="password"
+        placeholder="Password..."
         onChange={(event) => {
           setPassword(event.target.value);
         }}

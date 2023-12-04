@@ -4,6 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 function Contact() {
   const [listOfContact, setListOfContact] = useState([]);
+  const [authState, setAuthState] = useState({
+    username: "",
+    id: 0,
+    status: false,
+  });
   let navigate = useNavigate();
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -25,14 +30,29 @@ function Contact() {
     }
   }, []);
 
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    setAuthState({
+      username: "",
+      id: 0,
+      status: false,
+    });
+    navigate("/adminUsers/login");
+  };
   return (
     <div>
+      <button onClick={logout}>Logout </button>
       {listOfContact.map((value, key) => {
         return (
-          <div key={key}>
-            <div> {value.message}</div>
-            <div> {value.name}</div>
-          </div>
+          <>
+            <div key={key}>
+              <div>
+                <div> {value.message}</div>
+                <div> {value.name}</div>
+                <div> {value.createdAt}</div>
+              </div>
+            </div>
+          </>
         );
       })}
     </div>
