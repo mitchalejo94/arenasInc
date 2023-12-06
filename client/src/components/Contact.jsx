@@ -25,10 +25,10 @@ function Contact() {
         })
         .catch((error) => {});
     } else {
-      window.alert("Please log in to view the contact list.");
+      alert("Please log in to view the contact list.");
       navigate("/adminUsers/login");
     }
-  }, []);
+  }, [navigate, listOfContact]);
 
   const logout = () => {
     localStorage.removeItem("accessToken");
@@ -46,7 +46,11 @@ function Contact() {
         return (
           <>
             <div key={key}>
-              <div>
+              <div
+                onClick={() => {
+                  navigate(`/contactList/${value.id}`);
+                }}
+              >
                 <div> {value.message}</div>
                 <div> {value.name}</div>
                 <div> {value.createdAt}</div>
