@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+
 function Publication() {
   let { id } = useParams();
   const [contactText, setContactText] = useState({});
-
+  let navigate = useNavigate();
   useEffect(() => {
     axios.get(`http://localhost:3003/Contact/${id}`).then((response) => {
-      console.log(response.data);
       setContactText(response.data);
     });
   }, []);
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:3003/Contact/${id}`);
+      navigate("/contactList");
+    } catch (error) {
+      console.error(error, "cant delete publication");
+    }
+  };
 
   return (
     <>
@@ -21,6 +30,7 @@ function Publication() {
         <div>{contactText.message}</div>
         <div>{contactText.phoneNumber}</div>
         <div>{contactText.cityState}</div>
+        <button onClick={handleDelete}>Delete Publication</button>
       </div>
     </>
   );
