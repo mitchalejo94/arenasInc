@@ -27,6 +27,16 @@ function Publication() {
     }
   };
 
+  const handleTransferToCompleted = async () => {
+    try {
+      await axios.post(`http://localhost:3003/completedContacts`, contactText);
+      await axios.delete(`http://localhost:3003/Contact/${id}`);
+      navigate("/contactList");
+    } catch (error) {
+      console.error(error, "can't transfer to completed list");
+    }
+  };
+
   return (
     <>
       <h1>Publication ID: {id}</h1>
@@ -37,6 +47,9 @@ function Publication() {
         <div>{contactText.phoneNumber}</div>
         <div>{contactText.cityState}</div>
         <button onClick={handleDelete}>Delete Publication</button>
+        <button onClick={handleTransferToCompleted}>
+          Transfer to Completed Projects
+        </button>
       </div>
     </>
   );

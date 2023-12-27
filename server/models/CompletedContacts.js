@@ -1,14 +1,31 @@
 module.exports = (sequelize, DataTypes) => {
   const CompletedContacts = sequelize.define("CompletedContacts", {
-    // Fields specific to completed contacts, if any
-    // ...
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    phoneNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    cityState: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    message: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
 
   CompletedContacts.associate = (models) => {
     CompletedContacts.belongsTo(models.Contact, {
-      foreignKey: "contactId", // Assuming Contact has an 'id' primary key field
-      onDelete: "CASCADE", // Optional: Cascade delete if the contact is deleted
-      onUpdate: "CASCADE", // Optional: Cascade update if the contact is updated
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
     });
   };
 
