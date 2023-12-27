@@ -22,4 +22,33 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:contactId", async (req, res) => {
+  try {
+    const id = req.params.contactId;
+    const completedContacts = await CompletedContacts.findByPk(id);
+    if (!completedContacts) {
+      return res.status(404).json({ error: "Contact not found" });
+    }
+    res.json(completedContacts);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.delete("/:contactId", async (req, res) => {
+  const contactId = req.params.contactId;
+
+  try {
+    const completedContacts = await CompletedContacts.findByPk(contactId);
+
+    if (!completedContacts) {
+      return res.status(404).json({ error: "Contact not found" });
+    }
+
+    await completedContacts.destroy();
+    res.json("deleted success");
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 module.exports = router;

@@ -4,6 +4,7 @@ import ContactForm from "./components/ContactForm";
 import Login from "./components/Login";
 import Publication from "./components/Publication";
 import CompletedContacts from "./components/CompletedContacts";
+import PublicationCompleted from "./components/PublicationCompleted";
 function App() {
   return (
     <>
@@ -15,6 +16,10 @@ function App() {
           <Route path="/contactForm" element={<ContactForm />}></Route>
           <Route path="/adminUsers/login" element={<Login />}></Route>
           <Route path="/contactList/:id" element={<Publication />}></Route>
+          <Route
+            path="/completedContacts/:id"
+            element={<PublicationCompleted />}
+          ></Route>
           <Route
             path="/completedContacts"
             element={<CompletedContacts />}
