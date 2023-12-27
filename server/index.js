@@ -15,6 +15,9 @@ app.use("/contact", contactRouter);
 const adminUserRouter = require("./routes/AdminUsers");
 app.use("/adminUsers", adminUserRouter);
 
+const completedContactsRouter = require("./routes/CompletedContacts");
+app.use("/completedContacts", completedContactsRouter);
+
 db.sequelize.sync().then(() => {
   app.listen(3003, () => {
     console.log("server running on port 3003");
