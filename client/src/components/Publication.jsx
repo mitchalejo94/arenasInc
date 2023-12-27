@@ -14,8 +14,14 @@ function Publication() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:3003/Contact/${id}`);
-      navigate("/contactList");
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete this publication?"
+      );
+
+      if (confirmDelete) {
+        await axios.delete(`http://localhost:3003/Contact/${id}`);
+        navigate("/contactList");
+      }
     } catch (error) {
       console.error(error, "cant delete publication");
     }
