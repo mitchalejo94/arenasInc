@@ -3,6 +3,7 @@ import Contact from "./components/Contact";
 import ContactForm from "./components/ContactForm";
 import Login from "./components/Login";
 import Publication from "./components/Publication";
+import CompletedContacts from "./components/CompletedContacts";
 function App() {
   return (
     <>
@@ -14,6 +15,10 @@ function App() {
           <Route path="/contactForm" element={<ContactForm />}></Route>
           <Route path="/adminUsers/login" element={<Login />}></Route>
           <Route path="/contactList/:id" element={<Publication />}></Route>
+          <Route
+            path="/completedContacts"
+            element={<CompletedContacts />}
+          ></Route>
         </Routes>
       </Router>
     </>

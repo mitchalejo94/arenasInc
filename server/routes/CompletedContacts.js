@@ -13,4 +13,13 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/", async (req, res) => {
+  try {
+    const completedContactList = await CompletedContacts.findAll();
+    res.json(completedContactList);
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 module.exports = router;
