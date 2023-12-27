@@ -1,103 +1,135 @@
-import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import React, { useRef, useState } from "react";
+import { Button, Checkbox, Form, Input } from "antd";
 import axios from "axios";
 
 function ContactForm() {
+  const formRef = useRef(null);
   let [submitted, setSubmitted] = useState(false);
 
-  const initialValues = {
-    name: "",
-    email: "",
-    phoneNumber: "",
-    cityState: "",
-    message: "",
+  const onFinish = (values) => {
+    onSubmit(values);
   };
 
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().required(),
-    email: Yup.string().email("Valid Email is required").required(),
-    phoneNumber: Yup.string().required(),
-    cityState: Yup.string().required(),
-    message: Yup.string().required(),
-  });
-
-  const onSubmit = (data, { resetForm }) => {
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+  const onSubmit = (data) => {
     axios
       .post("http://localhost:3003/contact", data)
       .then((response) => {
         setSubmitted(true);
-        resetForm();
       })
       .catch((error) => {
         console.error("Error submitting form:", error);
+      })
+      .finally(() => {
+        if (formRef.current) {
+          setTimeout(() => {
+            formRef.current.resetFields();
+          }, 100);
+        }
       });
   };
+  const phoneNumberRegex = /^\d{10}$/;
 
   return (
-    <>
-      <div className="contactFormPage">
-        <h1>Contact us for an Estimate!!!</h1>
-        <Formik
-          initialValues={initialValues}
-          onSubmit={onSubmit}
-          validationSchema={validationSchema}
+    <div className="contactFormPage">
+      <h1>Contact us for an Estimate!!!</h1>
+
+      <Form
+        name="basic"
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        style={{ maxWidth: 600 }}
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        autoComplete="off"
+        ref={formRef}
+      >
+        <Form.Item
+          label="Name"
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: "Please input your name!",
+            },
+          ]}
         >
-          {() => (
-            <Form className="formContainer">
-              {submitted && (
-                <div className="alert">
-                  Thank you for submitting, We will get back to you ASAP.
-                </div>
-              )}
-              <div className="formGroup">
-                <label htmlFor="name">Name:</label>
-                <Field
-                  id="name"
-                  name="name"
-                  placeholder="First and last name..."
-                />
-                <ErrorMessage name="name" component="span" />
-              </div>
-              <div className="formGroup">
-                <label htmlFor="email">Email:</label>
-                <Field id="email" name="email" placeholder="Email..." />
-                <ErrorMessage name="email" component="span" />
-              </div>
-              <div className="formGroup">
-                <label htmlFor="phoneNumber">Phone Number:</label>
-                <Field
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  placeholder="Phone number..."
-                />
-                <ErrorMessage name="phoneNumber" component="span" />
-              </div>
-              <div className="formGroup">
-                <label htmlFor="cityState">City & State:</label>
-                <Field
-                  id="cityState"
-                  name="cityState"
-                  placeholder="City and State..."
-                />
-                <ErrorMessage name="cityState" component="span" />
-              </div>
-              <div className="formGroup">
-                <label htmlFor="message">Description:</label>
-                <Field
-                  // as="textarea"
-                  id="message"
-                  name="message"
-                  placeholder="Project description..."
-                />
-                <ErrorMessage name="message" component="span" />
-              </div>
-              <button type="submit">Submit contact information</button>
-            </Form>
-          )}
-        </Formik>
-      </div>
-    </>
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Email"
+          name="email"
+          rules={[
+            {
+              required: true,
+              type: "email",
+              message: "Please input a valid email address!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Phone Number"
+          name="phoneNumber"
+          rules={[
+            {
+              required: true,
+              message: "Please input your phone number!",
+            },
+            {
+              pattern: phoneNumberRegex,
+              message: "Please enter a valid phone number format.",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="City/State"
+          name="cityState"
+          rules={[
+            {
+              required: true,
+              message: "Please input your city and state!",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Message"
+          name="message"
+          rules={[
+            {
+              required: true,
+              message: "Please input your message!",
+            },
+          ]}
+        >
+          <Input.TextArea />
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+        {submitted && (
+          <div className="alert">
+            Thank you for submitting contact request, We will get back to you
+            ASAP.
+          </div>
+        )}
+      </Form>
+    </div>
   );
 }
 
