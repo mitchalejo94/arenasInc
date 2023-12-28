@@ -5,9 +5,9 @@ import axios from "axios";
 function Publication() {
   let { id } = useParams();
   const [contactText, setContactText] = useState([]);
-
+  const [notes, setNotes] = useState([]);
+  const [newNote, setNewNote] = useState("");
   let navigate = useNavigate();
-
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
@@ -25,6 +25,38 @@ function Publication() {
       navigate("/adminUsers/login");
     }
   }, [navigate, contactText]);
+
+  const addNote = () => {
+    axios
+      .post(
+        "http://localhost:3003/notes",
+        {
+          noteBody: newNote,
+          ContactId: id,
+        },
+        {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data.error) {
+          alert(response.data.error);
+        } else {
+          const noteToAdd = {
+            noteBody: newNote,
+            username: response.data.username,
+          };
+          setNotes([...notes, noteToAdd]);
+          setNewNote("");
+        }
+      });
+  };
+
+  // const deleteNote=()=>{
+
+  // }
 
   const handleDelete = async () => {
     try {
@@ -64,6 +96,20 @@ function Publication() {
         <button onClick={handleTransferToCompleted}>
           Transfer to Completed Projects
         </button>
+        <div>
+          <h1>Notes Section</h1>
+          <div className="notesContainer">
+            <input
+              type="text"
+              placeholder="Notes..."
+              value={newNote}
+              onChange={(event) => {
+                setNewNote(event.target.value);
+              }}
+            />
+            <button onClick={addNote}>Post note</button>
+          </div>
+        </div>
       </div>
     </>
   );

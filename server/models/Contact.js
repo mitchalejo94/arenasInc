@@ -22,5 +22,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   });
+
+  Contact.associate = (models) => {
+    Contact.hasMany(models.Notes, { onDelete: "cascade" });
+  };
   return Contact;
 };
