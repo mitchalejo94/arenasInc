@@ -10,4 +10,22 @@ router.post("/", validateToken, async (req, res) => {
   await Notes.create(note);
   res.json(note);
 });
+
+router.get("/:noteId", async (req, res) => {
+  const noteId = req.params.noteId;
+  const notes = await Notes.findAll({ where: { id: noteId } });
+  res.json(notes);
+});
+
+router.delete("/:noteId", validateToken, async (req, res) => {
+  const noteId = req.params.noteId;
+
+  await Notes.destroy({
+    where: {
+      id: noteId,
+    },
+  });
+  res.json("deleted success");
+});
+
 module.exports = router;
