@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { AuthContext } from "../helpers/AuthContext";
 import axios from "axios";
 
 function Publication() {
@@ -7,7 +8,9 @@ function Publication() {
   const [contactText, setContactText] = useState([]);
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
+  const { authState } = useContext(AuthContext);
   let navigate = useNavigate();
+
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
@@ -108,6 +111,16 @@ function Publication() {
               }}
             />
             <button onClick={addNote}>Post note</button>
+          </div>
+          <div className="listOfNotes">
+            {notes.map((note, key) => {
+              return (
+                <div key={key} className="note">
+                  {note.noteBody}
+                  <label> - {note.username} </label>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
