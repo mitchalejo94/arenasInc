@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Contact() {
   const [listOfContact, setListOfContact] = useState([]);
@@ -10,6 +10,7 @@ function Contact() {
     status: false,
   });
   let navigate = useNavigate();
+
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
 
@@ -22,8 +23,8 @@ function Contact() {
         })
         .then((response) => {
           setListOfContact(response.data);
-        })
-        .catch((error) => {});
+        });
+      // .catch((error) => {});
     } else {
       alert("Please log in to view the contact list.");
       navigate("/adminUsers/login");
@@ -41,7 +42,11 @@ function Contact() {
   };
   return (
     <div>
+      <Link to="/completedContacts">Completed Projects/Contacts</Link>
       <button onClick={logout}>Logout </button>
+      <div>
+        <h1>ContactList Page</h1>
+      </div>
       {listOfContact.map((value, key) => {
         return (
           <>

@@ -4,12 +4,26 @@ import axios from "axios";
 
 function CompletedContacts() {
   const [contactData, setContactData] = useState([]);
+
   let navigate = useNavigate();
+
   useEffect(() => {
-    axios.get(`http://localhost:3003/completedContacts`).then((response) => {
-      setContactData(response.data);
-    });
-  }, []);
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      axios
+        .get(`http://localhost:3003/completedContacts`, {
+          headers: {
+            accessToken: accessToken, // Pass the token in the request headers
+          },
+        })
+        .then((response) => {
+          setContactData(response.data);
+        });
+    } else {
+      alert("Please log in to view the completed contact list.");
+      navigate("/adminUsers/login");
+    }
+  }, [navigate, contactData]);
 
   return (
     <>

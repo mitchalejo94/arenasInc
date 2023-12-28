@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { CompletedContacts } = require("../models");
+const { validateToken } = require("../middlewares/AuthMiddleware");
 
 router.post("/", async (req, res) => {
   try {
@@ -13,7 +14,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", validateToken, async (req, res) => {
   try {
     const completedContactList = await CompletedContacts.findAll();
     res.json(completedContactList);
@@ -22,7 +23,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:contactId", async (req, res) => {
+router.get("/:contactId", validateToken, async (req, res) => {
   try {
     const id = req.params.contactId;
     const completedContacts = await CompletedContacts.findByPk(id);

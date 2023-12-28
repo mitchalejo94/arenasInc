@@ -4,13 +4,27 @@ import axios from "axios";
 
 function Publication() {
   let { id } = useParams();
-  const [contactText, setContactText] = useState({});
+  const [contactText, setContactText] = useState([]);
+
   let navigate = useNavigate();
+
   useEffect(() => {
-    axios.get(`http://localhost:3003/Contact/${id}`).then((response) => {
-      setContactText(response.data);
-    });
-  }, []);
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      axios
+        .get(`http://localhost:3003/Contact/${id}`, {
+          headers: {
+            accessToken: accessToken, // Pass the token in the request headers
+          },
+        })
+        .then((response) => {
+          setContactText(response.data);
+        });
+    } else {
+      alert("Please log in to view the Publication.");
+      navigate("/adminUsers/login");
+    }
+  }, [navigate, contactText]);
 
   const handleDelete = async () => {
     try {

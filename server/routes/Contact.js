@@ -15,7 +15,7 @@ router.get("/", validateToken, async (req, res) => {
 });
 
 //Get by id//
-router.get("/:contactId", async (req, res) => {
+router.get("/:contactId", validateToken, async (req, res) => {
   try {
     const id = req.params.contactId;
     const contact = await Contact.findByPk(id);

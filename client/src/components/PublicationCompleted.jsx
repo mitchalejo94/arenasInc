@@ -4,15 +4,27 @@ import axios from "axios";
 
 function PublicationCompleted() {
   let { id } = useParams();
-  const [contactText, setContactText] = useState({});
+  const [contactText, setContactText] = useState([]);
   let navigate = useNavigate();
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:3003/completedContacts/${id}`)
-      .then((response) => {
-        setContactText(response.data);
-      });
-  }, []);
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      axios
+        .get(`http://localhost:3003/completedContacts/${id}`, {
+          headers: {
+            accessToken: accessToken, // Pass the token in the request headers
+          },
+        })
+        .then((response) => {
+          setContactText(response.data);
+        });
+    } else {
+      alert("Please log in to view the Publication.");
+      navigate("/adminUsers/login");
+    }
+  }, [navigate, contactText]);
+
   const handleDelete = async () => {
     try {
       const confirmDelete = window.confirm(
@@ -28,6 +40,16 @@ function PublicationCompleted() {
       console.error("Error message:", error.response?.data?.error);
     }
   };
+
+  const handleTransferToContacts = async () => {
+    try {
+      await axios.post(`http://localhost:3003/Contact`, contactText);
+      await axios.delete(`http://localhost:3003/completedContacts/${id}`);
+      navigate("/completedContacts");
+    } catch (error) {
+      console.error(error, "can't transfer to Contact list");
+    }
+  };
   return (
     <>
       <h1>Completed Publication ID: {id}</h1>
@@ -39,6 +61,9 @@ function PublicationCompleted() {
         <div>{contactText.cityState}</div>
 
         <button onClick={handleDelete}>Delete Publication</button>
+        <button onClick={handleTransferToContacts}>
+          Transfer to ContactList
+        </button>
       </div>
     </>
   );
