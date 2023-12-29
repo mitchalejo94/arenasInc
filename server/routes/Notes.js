@@ -11,9 +11,9 @@ router.post("/", validateToken, async (req, res) => {
   res.json(note);
 });
 
-router.get("/:noteId", async (req, res) => {
-  const noteId = req.params.noteId;
-  const notes = await Notes.findAll({ where: { id: noteId } });
+router.get("/:contactId", async (req, res) => {
+  const contactId = req.params.contactId;
+  const notes = await Notes.findAll({ where: { ContactId: contactId } });
   res.json(notes);
 });
 

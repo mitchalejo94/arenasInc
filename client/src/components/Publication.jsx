@@ -23,11 +23,24 @@ function Publication() {
         .then((response) => {
           setContactText(response.data);
         });
+
+      axios
+        .get(`http://localhost:3003/notes/${id}`, {
+          headers: {
+            accessToken: accessToken,
+          },
+        })
+        .then((response) => {
+          setNotes(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching notes:", error);
+        });
     } else {
       alert("Please log in to view the Publication.");
       navigate("/adminUsers/login");
     }
-  }, [navigate, contactText]);
+  }, [id, navigate]);
 
   const addNote = () => {
     axios
@@ -52,6 +65,7 @@ function Publication() {
             username: response.data.username,
           };
           setNotes([...notes, noteToAdd]);
+          // setNotes((prevNotes) => [...prevNotes, noteToAdd]);
           setNewNote("");
         }
       });

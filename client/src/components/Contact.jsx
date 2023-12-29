@@ -29,7 +29,7 @@ function Contact() {
       alert("Please log in to view the contact list.");
       navigate("/adminUsers/login");
     }
-  }, [navigate, listOfContact]);
+  }, [navigate]);
 
   const logout = () => {
     localStorage.removeItem("accessToken");
