@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
   let navigate = useNavigate();
   const login = () => {
     const data = { username: username, password: password };
@@ -18,12 +20,17 @@ function Login() {
           localStorage.setItem("accessToken", response.data);
           navigate("/contactList");
         }
+      })
+      .catch((error) => {
+        console.error(error, "Login Error");
+        setErrorMessage("Incorrect username and/or password");
       });
   };
 
   return (
     <div>
       <h1>Login Page</h1>
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       <label htmlFor="message">Username:</label>
       <input
         type="text"
