@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    ContactId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
   });
   return Notes;
 };

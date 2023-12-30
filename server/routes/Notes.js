@@ -17,6 +17,14 @@ router.get("/:contactId", async (req, res) => {
   res.json(notes);
 });
 
+router.get("/:CompletedContactId", async (req, res) => {
+  const completedContactId = req.params.completedContactId;
+  const notes = await Notes.findAll({
+    where: { CompletedContactId: completedContactId },
+  });
+  res.json(notes);
+});
+
 router.delete("/:noteId", validateToken, async (req, res) => {
   const noteId = req.params.noteId;
 

@@ -6,6 +6,8 @@ function PublicationCompleted() {
   let { id } = useParams();
   const [contactText, setContactText] = useState([]);
   let navigate = useNavigate();
+  const [notes, setNotes] = useState([]);
+  // const [newNote, setNewNote] = useState("");
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -19,11 +21,23 @@ function PublicationCompleted() {
         .then((response) => {
           setContactText(response.data);
         });
+      axios
+        .get(`http://localhost:3003/notes/${id}`, {
+          headers: {
+            accessToken: accessToken,
+          },
+        })
+        .then((response) => {
+          setNotes(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching notes:", error);
+        });
     } else {
       alert("Please log in to view the Publication.");
       navigate("/adminUsers/login");
     }
-  }, [navigate, contactText]);
+  }, [id, navigate]);
 
   const handleDelete = async () => {
     try {
@@ -64,6 +78,18 @@ function PublicationCompleted() {
         <button onClick={handleTransferToContacts}>
           Transfer to ContactList
         </button>
+      </div>
+
+      <h1>Notes Section</h1>
+      <div className="listOfNotes">
+        {notes.map((note, key) => {
+          return (
+            <div key={key} className="note">
+              {note.noteBody}
+              <label> - {note.username} </label>
+            </div>
+          );
+        })}
       </div>
     </>
   );
