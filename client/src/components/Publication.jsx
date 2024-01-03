@@ -82,7 +82,11 @@ function Publication() {
       );
 
       if (confirmDelete) {
-        await axios.delete(`http://localhost:3003/Contact/${id}`);
+        await axios.delete(`http://localhost:3003/Contact/${id}`, {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        });
         navigate("/contactList");
       }
     } catch (error) {
@@ -90,11 +94,28 @@ function Publication() {
     }
   };
 
-  const handleTransferToCompleted = async () => {
+  // const handleTransferToCompleted = async () => {
+  //   try {
+  //     await axios.post(`http://localhost:3003/completedContacts`, contactText);
+  //     await axios.delete(`http://localhost:3003/Contact/${id}`);
+  //     navigate("/contactList");
+  //   } catch (error) {
+  //     console.error(error, "can't transfer to completed list");
+  //   }
+  // };
+
+  const transferButton = async () => {
     try {
-      await axios.post(`http://localhost:3003/completedContacts`, contactText);
-      await axios.delete(`http://localhost:3003/Contact/${id}`);
-      navigate("/contactList");
+      await axios.post(
+        `http://localhost:3003/Contact/activeContact/${id}`,
+        contactText,
+        {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        }
+      );
+      // navigate("/contactList");
     } catch (error) {
       console.error(error, "can't transfer to completed list");
     }
@@ -110,14 +131,15 @@ function Publication() {
         <div>{contactText.phoneNumber}</div>
         <div>{contactText.cityState}</div>
         <button onClick={handleDelete}>Delete Publication</button>
-        <button
+        {/* <button
           onClick={() => {
             handleTransferToCompleted();
             // handleDelete();
           }}
         >
           Transfer to Completed Projects
-        </button>
+        </button> */}
+        <button onClick={transferButton}>transfer</button>
         <div>
           <h1>Notes Section</h1>
           <div className="notesContainer">

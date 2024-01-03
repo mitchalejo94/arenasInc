@@ -41,9 +41,9 @@ router.post("/", async (req, res) => {
   }
 });
 
-//Delete Route
+//Delete Contact Route
 
-router.delete("/:contactId", async (req, res) => {
+router.delete("/:contactId", validateToken, async (req, res) => {
   const contactId = req.params.contactId;
   try {
     const contact = await Contact.findByPk(contactId);
@@ -58,7 +58,7 @@ router.delete("/:contactId", async (req, res) => {
   }
 });
 //Route to toggle activeContact statush
-router.post("/activeContact/:contactId", async (req, res) => {
+router.post("/activeContact/:contactId", validateToken, async (req, res) => {
   const contactId = req.params.contactId;
   try {
     const contact = await Contact.findByPk(contactId);
