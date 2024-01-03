@@ -22,9 +22,11 @@ function Contact() {
           },
         })
         .then((response) => {
-          setListOfContact(response.data);
+          const activeContact = response.data.filter(
+            (contact) => contact.activeContact === true
+          );
+          setListOfContact(activeContact);
         });
-      // .catch((error) => {});
     } else {
       alert("Please log in to view the contact list.");
       navigate("/adminUsers/login");

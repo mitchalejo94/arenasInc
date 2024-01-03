@@ -115,7 +115,7 @@ function Publication() {
           },
         }
       );
-      // navigate("/contactList");
+      navigate("/contactList");
     } catch (error) {
       console.error(error, "can't transfer to completed list");
     }
