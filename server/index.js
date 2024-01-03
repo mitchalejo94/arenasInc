@@ -15,9 +15,6 @@ app.use("/contact", contactRouter);
 const adminUserRouter = require("./routes/AdminUsers");
 app.use("/adminUsers", adminUserRouter);
 
-const completedContactsRouter = require("./routes/CompletedContacts");
-app.use("/completedContacts", completedContactsRouter);
-
 const notesRouter = require("./routes/Notes");
 app.use("/notes", notesRouter);
 

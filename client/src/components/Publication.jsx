@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { AuthContext } from "../helpers/AuthContext";
+
 import axios from "axios";
 
 function Publication() {
@@ -8,7 +8,7 @@ function Publication() {
   const [contactText, setContactText] = useState([]);
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
-  const { authState } = useContext(AuthContext);
+
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function Publication() {
       axios
         .get(`http://localhost:3003/Contact/${id}`, {
           headers: {
-            accessToken: accessToken, // Pass the token in the request headers
+            accessToken: accessToken,
           },
         })
         .then((response) => {
@@ -94,16 +94,6 @@ function Publication() {
     }
   };
 
-  // const handleTransferToCompleted = async () => {
-  //   try {
-  //     await axios.post(`http://localhost:3003/completedContacts`, contactText);
-  //     await axios.delete(`http://localhost:3003/Contact/${id}`);
-  //     navigate("/contactList");
-  //   } catch (error) {
-  //     console.error(error, "can't transfer to completed list");
-  //   }
-  // };
-
   const transferButton = async () => {
     try {
       await axios.post(
@@ -131,14 +121,7 @@ function Publication() {
         <div>{contactText.phoneNumber}</div>
         <div>{contactText.cityState}</div>
         <button onClick={handleDelete}>Delete Publication</button>
-        {/* <button
-          onClick={() => {
-            handleTransferToCompleted();
-            // handleDelete();
-          }}
-        >
-          Transfer to Completed Projects
-        </button> */}
+
         <button onClick={transferButton}>transfer</button>
         <div>
           <h1>Notes Section</h1>

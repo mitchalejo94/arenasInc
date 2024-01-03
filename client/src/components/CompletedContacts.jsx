@@ -11,13 +11,16 @@ function CompletedContacts() {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       axios
-        .get(`http://localhost:3003/completedContacts`, {
+        .get(`http://localhost:3003/Contact`, {
           headers: {
             accessToken: accessToken, // Pass the token in the request headers
           },
         })
         .then((response) => {
-          setContactData(response.data);
+          const activeContact = response.data.filter(
+            (contact) => contact.activeContact !== true
+          );
+          setContactData(activeContact);
         });
     } else {
       alert("Please log in to view the completed contact list.");
@@ -36,8 +39,6 @@ function CompletedContacts() {
                 navigate(`/completedContacts/${contact.id}`);
               }}
             >
-              <div>UpdatedAt: {contact.updatedAt}</div>
-
               <div>Name: {contact.name}</div>
               <div>Message: {contact.message}</div>
               <div>City and State: {contact.cityState}</div>
