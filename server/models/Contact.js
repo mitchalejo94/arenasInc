@@ -21,11 +21,15 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    activeContact: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true, // Setting the default value to true
+    },
   });
 
   Contact.associate = (models) => {
     Contact.hasMany(models.Notes, {
-      onDelete: "NO ACTION",
+      onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
   };

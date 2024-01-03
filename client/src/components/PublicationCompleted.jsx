@@ -7,11 +7,12 @@ function PublicationCompleted() {
   const [contactText, setContactText] = useState([]);
   let navigate = useNavigate();
   const [notes, setNotes] = useState([]);
+  const [prevId, setPrevId] = useState(null);
   // const [newNote, setNewNote] = useState("");
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
+    if (accessToken && id !== prevId) {
       axios
         .get(`http://localhost:3003/completedContacts/${id}`, {
           headers: {
@@ -33,11 +34,13 @@ function PublicationCompleted() {
         .catch((error) => {
           console.error("Error fetching notes:", error);
         });
-    } else {
+
+      setPrevId(id);
+    } else if (!accessToken) {
       alert("Please log in to view the Publication.");
       navigate("/adminUsers/login");
     }
-  }, [id, navigate]);
+  }, [id, navigate, prevId]);
 
   const handleDelete = async () => {
     try {

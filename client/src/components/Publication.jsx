@@ -110,7 +110,12 @@ function Publication() {
         <div>{contactText.phoneNumber}</div>
         <div>{contactText.cityState}</div>
         <button onClick={handleDelete}>Delete Publication</button>
-        <button onClick={handleTransferToCompleted}>
+        <button
+          onClick={() => {
+            handleTransferToCompleted();
+            // handleDelete();
+          }}
+        >
           Transfer to Completed Projects
         </button>
         <div>

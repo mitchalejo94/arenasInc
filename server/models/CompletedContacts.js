@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: "CASCADE",
     });
     CompletedContacts.hasMany(models.Notes, {
-      onDelete: "NO ACTION",
+      onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
   };

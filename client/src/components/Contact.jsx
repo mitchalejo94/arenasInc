@@ -42,28 +42,24 @@ function Contact() {
   };
   return (
     <div>
+      <button onClick={logout}>Logout</button>
       <Link to="/completedContacts">Completed Projects/Contacts</Link>
-      <button onClick={logout}>Logout </button>
       <div>
         <h1>ContactList Page</h1>
       </div>
-      {listOfContact.map((value, key) => {
-        return (
-          <>
-            <div key={key}>
-              <div
-                onClick={() => {
-                  navigate(`/contactList/${value.id}`);
-                }}
-              >
-                <div> {value.message}</div>
-                <div> {value.name}</div>
-                <div> {value.createdAt}</div>
-              </div>
-            </div>
-          </>
-        );
-      })}
+      {listOfContact.map((value, key) => (
+        <div key={key}>
+          <div
+            onClick={() => {
+              navigate(`/contactList/${value.id}`);
+            }}
+          >
+            <div>{value.message}</div>
+            <div>{value.name}</div>
+            <div>{value.createdAt}</div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

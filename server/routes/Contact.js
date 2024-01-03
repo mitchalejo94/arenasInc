@@ -45,7 +45,21 @@ router.post("/", async (req, res) => {
 
 router.delete("/:contactId", async (req, res) => {
   const contactId = req.params.contactId;
+  try {
+    const contact = await Contact.findByPk(contactId);
+    if (!contact) {
+      return res.status(404).json({ error: "Contact not found" });
+    }
 
+    await contact.destroy();
+    res.json("deleted success");
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+//Route to toggle activeContact statush
+router.post("/activeContact/:contactId", async (req, res) => {
+  const contactId = req.params.contactId;
   try {
     const contact = await Contact.findByPk(contactId);
 
@@ -53,8 +67,10 @@ router.delete("/:contactId", async (req, res) => {
       return res.status(404).json({ error: "Contact not found" });
     }
 
-    await contact.destroy();
-    res.json("deleted success");
+    // Update the activeProject attribute of the contact
+    await contact.update({ activeContact: !contact.activeContact });
+
+    res.status(200).json({ message: "Project updated successfully" });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }
