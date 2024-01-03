@@ -71,9 +71,19 @@ function Publication() {
       });
   };
 
-  // const deleteNote=()=>{
-
-  // }
+  const deleteNote = (id) => {
+    axios
+      .delete(`http://localhost:3003/notes/${id}`, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then(() => {
+        setNotes(
+          notes.filter((val) => {
+            return val.id != id;
+          })
+        );
+      });
+  };
 
   const handleDelete = async () => {
     try {
@@ -142,6 +152,13 @@ function Publication() {
                 <div key={key} className="note">
                   {note.noteBody}
                   <label> - {note.username} </label>
+                  <button
+                    onClick={() => {
+                      deleteNote(note.id);
+                    }}
+                  >
+                    Delete
+                  </button>
                 </div>
               );
             })}
