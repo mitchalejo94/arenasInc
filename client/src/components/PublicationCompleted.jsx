@@ -88,7 +88,7 @@ function PublicationCompleted() {
         <div>{contactText.cityState}</div>
 
         <button onClick={handleDelete}>Delete Publication</button>
-        <button onClick={transferButton}>transfer</button>
+        <button onClick={transferButton}>Mark as Active</button>
       </div>
 
       <h1>Notes Section</h1>

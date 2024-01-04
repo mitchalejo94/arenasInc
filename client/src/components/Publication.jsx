@@ -85,6 +85,16 @@ function Publication() {
       });
   };
 
+  const updateNote = async (id, updatedNote) => {
+    try {
+      await axios.put(`http://localhost:3003/notes/${id}`, {
+        noteBody: updatedNote,
+      });
+    } catch (error) {
+      console.error("Error updating note:", error);
+    }
+  };
+
   const handleDelete = async () => {
     try {
       const confirmDelete = window.confirm(
@@ -132,7 +142,7 @@ function Publication() {
         <div>{contactText.cityState}</div>
         <button onClick={handleDelete}>Delete Publication</button>
 
-        <button onClick={transferButton}>transfer</button>
+        <button onClick={transferButton}>Mark as Completed</button>
         <div>
           <h1>Notes Section</h1>
           <div className="notesContainer">
@@ -150,8 +160,22 @@ function Publication() {
             {notes.map((note, key) => {
               return (
                 <div key={key} className="note">
-                  {note.noteBody}
+                  <input
+                    type="text"
+                    defaultValue={note.noteBody}
+                    onChange={(event) => {
+                      // const updatedNoteBody = event.target.value;
+                      updateNote(note.id, event.target.value);
+                    }}
+                  />
+
                   <label> - {note.username} </label>
+
+                  <button onClick={() => updateNote(note.id)}>
+                    {" "}
+                    Save Changes
+                  </button>
+
                   <button
                     onClick={() => {
                       deleteNote(note.id);

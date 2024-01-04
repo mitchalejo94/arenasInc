@@ -17,14 +17,6 @@ router.get("/:contactId", async (req, res) => {
   res.json(notes);
 });
 
-router.get("/:CompletedContactId", async (req, res) => {
-  const completedContactId = req.params.completedContactId;
-  const notes = await Notes.findAll({
-    where: { CompletedContactId: completedContactId },
-  });
-  res.json(notes);
-});
-
 router.delete("/:noteId", validateToken, async (req, res) => {
   const noteId = req.params.noteId;
 
@@ -34,6 +26,25 @@ router.delete("/:noteId", validateToken, async (req, res) => {
     },
   });
   res.json("deleted success");
+});
+
+//Update Notes
+
+router.put("/:noteId", async (req, res) => {
+  const noteId = req.params.noteId;
+  const noteBody = req.body.noteBody;
+  try {
+    const note = await Notes.findByPk(noteId);
+
+    if (!note) {
+      return res.status(404).json({ error: "Note cannot be found" });
+    }
+    note.noteBody = noteBody;
+    await note.save();
+    res.status(200).json({ message: "Note body updated successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 module.exports = router;
