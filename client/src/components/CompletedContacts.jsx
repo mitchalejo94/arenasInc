@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Card } from "antd";
 
 function CompletedContacts() {
   const [contactData, setContactData] = useState([]);
@@ -32,18 +33,25 @@ function CompletedContacts() {
     <>
       <h1>Completed Contacts</h1>
       <div>
-        {contactData.map((contact, index) => (
-          <div key={index}>
-            <div
-              onClick={() => {
-                navigate(`/completedContacts/${contact.id}`);
-              }}
-            >
-              <div>Name: {contact.name}</div>
-              <div>Message: {contact.message}</div>
-              <div>City and State: {contact.cityState}</div>
-            </div>
-          </div>
+        {contactData.map((contact, key) => (
+          <Card
+            key={key}
+            title={contact.cityState}
+            bordered={false}
+            style={{
+              width: 300,
+              margin: "10px",
+              background: "#8d99ae",
+              color: "#edf2f4",
+            }}
+            onClick={() => {
+              navigate(`/completedContacts/${contact.id}`);
+            }}
+          >
+            <div>Name: {contact.name}</div>
+
+            <div>{contact.createdAt}</div>
+          </Card>
         ))}
       </div>
     </>

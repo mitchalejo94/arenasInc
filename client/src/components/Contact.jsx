@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Card } from "antd";
 
 function Contact() {
   const [listOfContact, setListOfContact] = useState([]);
-  const [authState, setAuthState] = useState({
-    username: "",
-    id: 0,
-    status: false,
-  });
+
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -33,35 +30,32 @@ function Contact() {
     }
   }, [navigate]);
 
-  // const logout = () => {
-  //   localStorage.removeItem("accessToken");
-  //   setAuthState({
-  //     username: "",
-  //     id: 0,
-  //     status: false,
-  //   });
-  //   navigate("/adminUsers/login");
-  // };
   return (
     <div>
-      {/* <button onClick={logout}>Logout</button> */}
-      <Link to="/completedContacts">Completed Projects/Contacts</Link>
       <div>
         <h1>ContactList Page</h1>
       </div>
-      {listOfContact.map((value, key) => (
-        <div key={key}>
-          <div
+      <div>
+        {listOfContact.map((value, key) => (
+          <Card
+            key={key}
+            title={value.cityState}
+            bordered={false}
+            style={{
+              width: 300,
+              margin: "10px",
+              background: "#8d99ae",
+              color: "#edf2f4",
+            }}
             onClick={() => {
               navigate(`/contactList/${value.id}`);
             }}
           >
-            <div>{value.message}</div>
-            <div>{value.name}</div>
+            <div>Name: {value.name}</div>
             <div>{value.createdAt}</div>
-          </div>
-        </div>
-      ))}
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }
