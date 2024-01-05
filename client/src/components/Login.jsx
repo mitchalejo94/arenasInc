@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+// import { logout } from "./Logout";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -48,6 +49,7 @@ function Login() {
         }}
       />
       <button onClick={login}>Login</button>
+      {/* <button onClick={logout}>Logout</button> */}
     </div>
   );
 }

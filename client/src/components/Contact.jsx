@@ -33,18 +33,18 @@ function Contact() {
     }
   }, [navigate]);
 
-  const logout = () => {
-    localStorage.removeItem("accessToken");
-    setAuthState({
-      username: "",
-      id: 0,
-      status: false,
-    });
-    navigate("/adminUsers/login");
-  };
+  // const logout = () => {
+  //   localStorage.removeItem("accessToken");
+  //   setAuthState({
+  //     username: "",
+  //     id: 0,
+  //     status: false,
+  //   });
+  //   navigate("/adminUsers/login");
+  // };
   return (
     <div>
-      <button onClick={logout}>Logout</button>
+      {/* <button onClick={logout}>Logout</button> */}
       <Link to="/completedContacts">Completed Projects/Contacts</Link>
       <div>
         <h1>ContactList Page</h1>
