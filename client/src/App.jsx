@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Contact from "./components/Contact";
-import ContactForm from "./components/ContactForm";
+import ContactForm from "./components/contactForm/ContactForm";
 import Login from "./components/Login";
 import Publication from "./components/Publication";
 import CompletedContacts from "./components/CompletedContacts";
