@@ -8,6 +8,8 @@ function Publication() {
   const [contactText, setContactText] = useState([]);
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
+  const [status, setStatus] = useState(false);
+  const [editedNote, setEditedNote] = useState("");
 
   let navigate = useNavigate();
 
@@ -42,59 +44,7 @@ function Publication() {
     }
   }, [id, navigate]);
 
-  const addNote = () => {
-    axios
-      .post(
-        "http://localhost:3003/notes",
-        {
-          noteBody: newNote,
-          ContactId: id,
-        },
-        {
-          headers: {
-            accessToken: localStorage.getItem("accessToken"),
-          },
-        }
-      )
-      .then((response) => {
-        if (response.data.error) {
-          alert(response.data.error);
-        } else {
-          const noteToAdd = {
-            noteBody: newNote,
-            username: response.data.username,
-          };
-          setNotes([...notes, noteToAdd]);
-          // setNotes((prevNotes) => [...prevNotes, noteToAdd]);
-          setNewNote("");
-        }
-      });
-  };
-
-  const deleteNote = (id) => {
-    axios
-      .delete(`http://localhost:3003/notes/${id}`, {
-        headers: { accessToken: localStorage.getItem("accessToken") },
-      })
-      .then(() => {
-        setNotes(
-          notes.filter((val) => {
-            return val.id != id;
-          })
-        );
-      });
-  };
-
-  const updateNote = async (id, updatedNote) => {
-    try {
-      await axios.put(`http://localhost:3003/notes/${id}`, {
-        noteBody: updatedNote,
-      });
-    } catch (error) {
-      console.error("Error updating note:", error);
-    }
-  };
-
+  //Contact Post ======
   const handleDelete = async () => {
     try {
       const confirmDelete = window.confirm(
@@ -131,6 +81,72 @@ function Publication() {
     }
   };
 
+  //Notes----
+  const addNote = async () => {
+    axios
+      .post(
+        "http://localhost:3003/notes",
+        {
+          noteBody: newNote,
+          ContactId: id,
+        },
+        {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data.error) {
+          alert(response.data.error);
+        } else {
+          const noteToAdd = {
+            noteBody: newNote,
+            username: response.data.username,
+          };
+          setNotes([...notes, noteToAdd]);
+          setNewNote("");
+        }
+      });
+  };
+
+  const deleteNote = (id) => {
+    axios
+      .delete(`http://localhost:3003/notes/${id}`, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then(() => {
+        setNotes(
+          notes.filter((val) => {
+            return val.id != id;
+          })
+        );
+      });
+  };
+
+  const updateNote = async (id, updatedNote) => {
+    try {
+      await axios.put(`http://localhost:3003/notes/${id}`, {
+        noteBody: updatedNote,
+      });
+      // setStatus(false);
+    } catch (error) {
+      console.error(
+        "Error updating note:",
+        error || error.message || error.response
+      );
+    }
+  };
+  const handleToggle = () => {
+    setStatus((prevStatus) => !prevStatus);
+  };
+  const handleInputChange = (event) => {
+    setEditedNote(event.target.value);
+  };
+
+  const handleSave = (noteId) => {
+    updateNote(noteId, editedNote);
+  };
   return (
     <>
       <h1>Publication ID: {id}</h1>
@@ -144,6 +160,7 @@ function Publication() {
 
         <button onClick={transferButton}>Mark as Completed</button>
         <div>
+          {/* --------------- */}
           <h1>Notes Section</h1>
           <div className="notesContainer">
             <input
@@ -156,33 +173,45 @@ function Publication() {
             />
             <button onClick={addNote}>Post note</button>
           </div>
+          {/* ----------- */}
+
           <div className="listOfNotes">
             {notes.map((note, key) => {
               return (
                 <div key={key} className="note">
-                  <input
-                    type="text"
-                    defaultValue={note.noteBody}
-                    onChange={(event) => {
-                      // const updatedNoteBody = event.target.value;
-                      updateNote(note.id, event.target.value);
-                    }}
-                  />
-
+                  {status ? (
+                    <div>
+                      <input
+                        type="text"
+                        defaultValue={note.noteBody}
+                        onChange={handleInputChange}
+                        // onChange={(event) => {
+                        //   updateNote(note.id, event.target.value);
+                        // }}
+                      />
+                      <button
+                        onClick={() => {
+                          handleSave(note.id);
+                          handleToggle();
+                        }}
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={() => {
+                          deleteNote(note.id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ) : (
+                    <div>
+                      <span>{note.noteBody}</span>
+                      <button onClick={handleToggle}>Edit</button>
+                    </div>
+                  )}
                   <label> - {note.username} </label>
-
-                  <button onClick={() => updateNote(note.id)}>
-                    {" "}
-                    Save Changes
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      deleteNote(note.id);
-                    }}
-                  >
-                    Delete
-                  </button>
                 </div>
               );
             })}
