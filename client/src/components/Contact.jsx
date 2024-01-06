@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Card, Alert, Space } from "antd";
+import "./Contact.css";
 
 function Contact() {
   const [listOfContact, setListOfContact] = useState([]);
@@ -38,6 +39,7 @@ function Contact() {
         {listOfContact.map((value, key) => (
           <Card
             key={key}
+            className="contactCard"
             title={value.cityState}
             bordered={false}
             style={{

@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Contact from "./components/Contact";
 import ContactForm from "./components/contactForm/ContactForm";
-import Login from "./components/Login";
+import Login from "./components/login/Login";
 import Publication from "./components/publications/Publication";
 import CompletedContacts from "./components/CompletedContacts";
 import PublicationCompleted from "./components/PublicationCompleted";

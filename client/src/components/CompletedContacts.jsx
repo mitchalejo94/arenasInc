@@ -35,6 +35,7 @@ function CompletedContacts() {
         {contactData.map((contact, key) => (
           <Card
             key={key}
+            className="contactCard"
             title={contact.cityState}
             bordered={false}
             style={{

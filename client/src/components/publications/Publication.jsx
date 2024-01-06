@@ -40,7 +40,6 @@ function Publication() {
           console.error("Error fetching notes:", error);
         });
     } else {
-      alert("Please log in to view the Publication.");
       navigate("/adminUsers/login");
     }
   }, [id, navigate]);

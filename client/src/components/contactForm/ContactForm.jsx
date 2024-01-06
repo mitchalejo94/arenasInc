@@ -37,7 +37,7 @@ function ContactForm() {
   return (
     <>
       <div className="contactFormTitle">
-        <h1>Contact Form</h1>
+        <h1>Contact Us</h1>
       </div>
 
       <Content>
@@ -83,16 +83,23 @@ function ContactForm() {
           name="basic"
           labelCol={{ span: 8 }}
           // wrapperCol={{ span: 16 }}
-          style={{ maxWidth: 600, margin: "auto", color: "blue" }}
+          style={{ maxWidth: 600, margin: "auto", color: "red" }}
           initialValues={{ remember: true }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
           ref={formRef}
         >
+          {submitted && (
+            <div className="alert">
+              Thank you, for submitting contact request, We will contact you
+              shortly.
+            </div>
+          )}
           <div className="formItems">
             <Form.Item
               label="Name"
+              className="formItems"
               name="name"
               rules={[
                 {
@@ -107,6 +114,7 @@ function ContactForm() {
             <Form.Item
               label="Email"
               name="email"
+              className="formItems"
               rules={[
                 {
                   required: true,
@@ -121,6 +129,7 @@ function ContactForm() {
             <Form.Item
               label="Phone Number"
               name="phoneNumber"
+              className="formItems"
               rules={[
                 {
                   required: true,
@@ -138,6 +147,7 @@ function ContactForm() {
             <Form.Item
               label="City/State"
               name="cityState"
+              className="formItems"
               rules={[
                 {
                   required: true,
@@ -151,6 +161,7 @@ function ContactForm() {
             <Form.Item
               label="Message"
               name="message"
+              className="formItems"
               rules={[
                 {
                   required: true,
@@ -161,18 +172,15 @@ function ContactForm() {
               <Input.TextArea />
             </Form.Item>
 
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Form.Item
+              wrapperCol={{ offset: 8, span: 16 }}
+              className="submitButton"
+            >
               <Button type="primary" htmlType="submit">
                 Submit
               </Button>
             </Form.Item>
           </div>
-          {submitted && (
-            <div className="alert">
-              Thank you, for submitting contact request, We will contact you
-              shortly.
-            </div>
-          )}
         </Form>
       </div>
     </>

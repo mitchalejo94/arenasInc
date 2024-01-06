@@ -36,7 +36,6 @@ function PublicationCompleted() {
 
       setPrevId(id);
     } else if (!accessToken) {
-      alert("Please log in to view the Publication.");
       navigate("/adminUsers/login");
     }
   }, [id, navigate, prevId]);

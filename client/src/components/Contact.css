@@ -1,0 +1,4 @@
+.contactCard:hover {
+  cursor: pointer;
+  border: solid gray;
+}
