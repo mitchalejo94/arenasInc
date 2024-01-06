@@ -9,15 +9,6 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [form] = Form.useForm();
-  const [clientReady, setClientReady] = useState(false);
-
-  useEffect(() => {
-    setClientReady(true);
-  }, []);
-  const onFinish = (values) => {
-    console.log("Finish:", values);
-  };
 
   let navigate = useNavigate();
   const login = () => {
@@ -30,6 +21,7 @@ function Login() {
         } else {
           localStorage.setItem("accessToken", response.data);
           navigate("/contactList");
+          window.location.reload();
         }
       })
       .catch((error) => {

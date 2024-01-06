@@ -24,7 +24,6 @@ function CompletedContacts() {
           setContactData(activeContact);
         });
     } else {
-      alert("Please log in to view the completed contact list.");
       navigate("/adminUsers/login");
     }
   }, [navigate]);

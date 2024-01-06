@@ -9,7 +9,7 @@ import Headers from "./components/Headers";
 import Home from "./components/Home";
 import Footers from "./components/Footers";
 
-import { Layout, Flex } from "antd";
+import { Layout } from "antd";
 const { Content } = Layout;
 
 function App() {

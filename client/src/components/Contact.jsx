@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Card } from "antd";
+import { Card, Alert, Space } from "antd";
 
 function Contact() {
   const [listOfContact, setListOfContact] = useState([]);
@@ -25,7 +25,6 @@ function Contact() {
           setListOfContact(activeContact);
         });
     } else {
-      alert("Please log in to view the contact list.");
       navigate("/adminUsers/login");
     }
   }, [navigate]);

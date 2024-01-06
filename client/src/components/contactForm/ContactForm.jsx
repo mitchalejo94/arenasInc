@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import { Button, Checkbox, Layout, Form, Input, Breadcrumb } from "antd";
-const { Header, Content, Footer } = Layout;
+import { Button, Checkbox, Layout, Form, Input } from "antd";
+const { Content } = Layout;
 import axios from "axios";
 import "./ContactForm.css";
 
@@ -40,11 +40,7 @@ function ContactForm() {
         <h1>Contact Form</h1>
       </div>
 
-      <Content
-        style={{
-          padding: "0 40px",
-        }}
-      >
+      <Content>
         <div
           style={{
             background: "#f5f5f5",

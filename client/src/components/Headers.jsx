@@ -46,9 +46,7 @@ function Headers() {
           </Menu.Item>
         ) : (
           <Menu.Item>
-            <Link to="#" onClick={logout}>
-              Logout
-            </Link>
+            <Link onClick={logout}>Logout</Link>
           </Menu.Item>
         )}
 
