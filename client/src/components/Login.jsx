@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Form, Input } from "antd";
 // import { logout } from "./Logout";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [form] = Form.useForm();
+  const [clientReady, setClientReady] = useState(false);
+
+  useEffect(() => {
+    setClientReady(true);
+  }, []);
+  const onFinish = (values) => {
+    console.log("Finish:", values);
+  };
 
   let navigate = useNavigate();
   const login = () => {
@@ -14,7 +25,6 @@ function Login() {
     axios
       .post("http://localhost:3003/adminUsers/login", data)
       .then((response) => {
-        // console.log(response.data);
         if (response.data.error) {
           alert(response.data.error);
         } else {
@@ -29,8 +39,8 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>Login Page</h1>
+    <div className="loginPage">
+      <h1 id="loginTitle">Login Page</h1>
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       <label htmlFor="message">Username:</label>
       <input
@@ -48,8 +58,14 @@ function Login() {
           setPassword(event.target.value);
         }}
       />
-      <button onClick={login}>Login</button>
-      {/* <button onClick={logout}>Logout</button> */}
+
+      <button
+        onClick={() => {
+          login();
+        }}
+      >
+        Login
+      </button>
     </div>
   );
 }

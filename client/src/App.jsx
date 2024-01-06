@@ -2,31 +2,47 @@ import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Contact from "./components/Contact";
 import ContactForm from "./components/contactForm/ContactForm";
 import Login from "./components/Login";
-import Publication from "./components/Publication";
+import Publication from "./components/publications/Publication";
 import CompletedContacts from "./components/CompletedContacts";
 import PublicationCompleted from "./components/PublicationCompleted";
 import Headers from "./components/Headers";
+import Home from "./components/Home";
+import Footers from "./components/Footers";
+
+import { Layout, Flex } from "antd";
+const { Content } = Layout;
+
 function App() {
   return (
     <>
       <Router>
-        <Headers />
+        <Layout style={{ minHeight: "100vh" }}>
+          <Headers />
+          <Content style={{ padding: "0 50px" }}>
+            <div style={{ background: "#fff", padding: 24, minHeight: 280 }}>
+              <Routes>
+                <Route path="/contactList" element={<Contact />}></Route>
+                <Route path="/contactForm" element={<ContactForm />}></Route>
+                <Route path="/adminUsers/login" element={<Login />}></Route>
+                <Route
+                  path="/contactList/:id"
+                  element={<Publication />}
+                ></Route>
+                <Route path="/home" element={<Home />}></Route>
 
-        <Routes>
-          <Route path="/contactList" element={<Contact />}></Route>
-          <Route path="/contactForm" element={<ContactForm />}></Route>
-          <Route path="/adminUsers/login" element={<Login />}></Route>
-          <Route path="/contactList/:id" element={<Publication />}></Route>
-
-          <Route
-            path="/completedContacts/:id"
-            element={<PublicationCompleted />}
-          ></Route>
-          <Route
-            path="/completedContacts"
-            element={<CompletedContacts />}
-          ></Route>
-        </Routes>
+                <Route
+                  path="/completedContacts/:id"
+                  element={<PublicationCompleted />}
+                ></Route>
+                <Route
+                  path="/completedContacts"
+                  element={<CompletedContacts />}
+                ></Route>
+              </Routes>
+            </div>
+          </Content>
+          <Footers />
+        </Layout>
       </Router>
     </>
   );

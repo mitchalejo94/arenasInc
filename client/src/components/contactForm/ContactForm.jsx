@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Layout, Form, Input, Breadcrumb } from "antd";
+const { Header, Content, Footer } = Layout;
 import axios from "axios";
 import "./ContactForm.css";
 
@@ -38,34 +39,49 @@ function ContactForm() {
       <div className="contactFormTitle">
         <h1>Contact Form</h1>
       </div>
-      <div className="cotactFormBody">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac ut
-          consequat semper viverra nam libero justo. Viverra justo nec ultrices
-          dui. Sed pulvinar proin gravida hendrerit lectus. Sem nulla pharetra
-          diam sit. Pharetra et ultrices neque ornare aenean euismod elementum
-          nisi quis. Imperdiet proin fermentum leo vel orci porta non pulvinar
-          neque. Risus quis varius quam quisque id diam vel quam elementum. Ut
-          sem nulla pharetra diam. Et ultrices neque ornare aenean euismod
-          elementum nisi quis.
-        </p>
-        <p>
-          Accumsan lacus vel facilisis volutpat est. Vitae aliquet nec
-          ullamcorper sit amet risus. A erat nam at lectus urna duis convallis
-          convallis. Sit amet justo donec enim diam. Faucibus purus in massa
-          tempor nec feugiat nisl pretium fusce. Auctor urna nunc id cursus
-          metus aliquam eleifend mi in. Ultricies mi eget mauris pharetra et
-          ultrices. Ut lectus arcu bibendum at varius. Sit amet massa vitae
-          tortor condimentum lacinia quis. Lacus vel facilisis volutpat est
-          velit egestas dui id. Vitae congue eu consequat ac. Purus ut faucibus
-          pulvinar elementum integer enim neque. Elit pellentesque habitant
-          morbi tristique senectus et netus et. Vitae congue eu consequat ac
-          felis donec et odio. Mattis pellentesque id nibh tortor id. Tempus
-          urna et pharetra pharetra massa. Urna porttitor rhoncus dolor purus
-          non.
-        </p>
-      </div>
+
+      <Content
+        style={{
+          padding: "0 40px",
+        }}
+      >
+        <div
+          style={{
+            background: "#f5f5f5",
+            minHeight: 28,
+            padding: 24,
+            borderRadius: "borderRadiusLg",
+          }}
+        >
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ac ut
+            consequat semper viverra nam libero justo. Viverra justo nec
+            ultrices dui. Sed pulvinar proin gravida hendrerit lectus. Sem nulla
+            pharetra diam sit. Pharetra et ultrices neque ornare aenean euismod
+            elementum nisi quis. Imperdiet proin fermentum leo vel orci porta
+            non pulvinar neque. Risus quis varius quam quisque id diam vel quam
+            elementum. Ut sem nulla pharetra diam. Et ultrices neque ornare
+            aenean euismod elementum nisi quis.
+          </p>
+          <p>
+            Accumsan lacus vel facilisis volutpat est. Vitae aliquet nec
+            ullamcorper sit amet risus. A erat nam at lectus urna duis convallis
+            convallis. Sit amet justo donec enim diam. Faucibus purus in massa
+            tempor nec feugiat nisl pretium fusce. Auctor urna nunc id cursus
+            metus aliquam eleifend mi in. Ultricies mi eget mauris pharetra et
+            ultrices. Ut lectus arcu bibendum at varius. Sit amet massa vitae
+            tortor condimentum lacinia quis. Lacus vel facilisis volutpat est
+            velit egestas dui id. Vitae congue eu consequat ac. Purus ut
+            faucibus pulvinar elementum integer enim neque. Elit pellentesque
+            habitant morbi tristique senectus et netus et. Vitae congue eu
+            consequat ac felis donec et odio. Mattis pellentesque id nibh tortor
+            id. Tempus urna et pharetra pharetra massa. Urna porttitor rhoncus
+            dolor purus non.
+          </p>
+        </div>
+      </Content>
+
       <div className="contactFormPage">
         <Form
           name="basic"

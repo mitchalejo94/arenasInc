@@ -63,6 +63,11 @@ function Headers() {
           </Menu.Item>
         )}
         {!loggedIn && (
+          <Menu.Item key="home">
+            <Link to="/home">Home</Link>
+          </Menu.Item>
+        )}
+        {!loggedIn && (
           <Menu.Item key="contactForm">
             <Link to="/contactForm">Contact Us Form</Link>
           </Menu.Item>
