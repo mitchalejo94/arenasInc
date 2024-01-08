@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Divider, List, Typography } from "antd";
+import { List, Card, Button, Input } from "antd";
+import "./Publication.css";
 
 import axios from "axios";
 
@@ -13,6 +14,11 @@ function Publication() {
   const [editedNote, setEditedNote] = useState("");
 
   let navigate = useNavigate();
+
+  const gridStyle = {
+    width: "100%",
+    textAlign: "center",
+  };
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -147,76 +153,101 @@ function Publication() {
   const handleSave = (noteId) => {
     updateNote(noteId, editedNote);
   };
+
+  const handleEmailClick = () => {
+    window.location.href = `mailto:${contactText.email}`;
+  };
+  const handlePhoneClick = () => {
+    window.location.href = `tel:${contactText.phoneNumber}`;
+  };
   return (
     <>
-      <h1>Publication ID: {id}</h1>
+      <Card>
+        {/* <Card title={"Contact:" {contactText.name}}> */}
+        <Card.Grid hoverable={false} style={gridStyle}>
+          Contact: {contactText.name}
+        </Card.Grid>
+
+        <Card.Grid hoverable={false} style={gridStyle}>
+          Message: {contactText.message}
+        </Card.Grid>
+        <Card.Grid hoverable={false} style={gridStyle}>
+          City and State: {contactText.cityState}
+        </Card.Grid>
+        <Card.Grid onClick={handlePhoneClick} style={gridStyle}>
+          Phone: {contactText.phoneNumber}
+        </Card.Grid>
+        <Card.Grid onClick={handleEmailClick} style={gridStyle}>
+          Email: {contactText.email}
+        </Card.Grid>
+      </Card>
+      <div className="cardButtons">
+        <Button onClick={handleDelete}>Delete Publication</Button>
+        <Button onClick={transferButton}>Mark as Completed</Button>
+      </div>
       <div>
-        <div>{contactText.name}</div>
-        <div>{contactText.email}</div>
-        <div>{contactText.message}</div>
-        <div>{contactText.phoneNumber}</div>
-        <div>{contactText.cityState}</div>
-        <button onClick={handleDelete}>Delete Publication</button>
+        {/* --------------- */}
+        <h1>Notes Section</h1>
 
-        <button onClick={transferButton}>Mark as Completed</button>
-        <div>
-          {/* --------------- */}
-          <h1>Notes Section</h1>
-          <div className="notesContainer">
-            <input
-              type="text"
-              placeholder="Notes..."
-              value={newNote}
-              onChange={(event) => {
-                setNewNote(event.target.value);
-              }}
-            />
-            <button onClick={addNote}>Post note</button>
-          </div>
-          {/* ----------- */}
-
+        <div className="notesContainer">
+          <Input
+            type="text"
+            placeholder="Notes..."
+            value={newNote}
+            onChange={(event) => {
+              setNewNote(event.target.value);
+            }}
+          />
+          <Button onClick={addNote}>Post note</Button>
+        </div>
+        {/* ----------- */}
+        <List className="">
           <div className="listOfNotes">
             {notes.map((note, key) => {
               return (
                 <div key={key} className="note">
                   {status ? (
                     <div>
-                      <input
-                        type="text"
-                        defaultValue={note.noteBody}
-                        onChange={handleInputChange}
-                        // onChange={(event) => {
-                        //   updateNote(note.id, event.target.value);
-                        // }}
-                      />
-                      <button
-                        onClick={() => {
-                          handleSave(note.id);
-                          handleToggle();
-                        }}
-                      >
-                        Save
-                      </button>
-                      <button
-                        onClick={() => {
-                          deleteNote(note.id);
-                        }}
-                      >
-                        Delete
-                      </button>
+                      <List.Item>
+                        <Input
+                          type="text"
+                          defaultValue={note.noteBody}
+                          onChange={handleInputChange}
+                          // onChange={(event) => {
+                          //   updateNote(note.id, event.target.value);
+                          // }}
+                        />
+                        <Button
+                          onClick={() => {
+                            handleSave(note.id);
+                            handleToggle();
+                          }}
+                        >
+                          Save
+                        </Button>
+                        <Button
+                          onClick={() => {
+                            deleteNote(note.id);
+                          }}
+                        >
+                          Delete
+                        </Button>
+                      </List.Item>
                     </div>
                   ) : (
                     <div>
-                      <span>{note.noteBody}</span>
-                      <button onClick={handleToggle}>Edit</button>
+                      <List.Item>
+                        <span>{note.noteBody}</span>
+                        <label> - {note.username} </label>
+                        <Button onClick={handleToggle}>Edit</Button>
+                      </List.Item>
                     </div>
                   )}
-                  <label> - {note.username} </label>
                 </div>
               );
             })}
           </div>
-        </div>
+        </List>
       </div>
     </>
   );

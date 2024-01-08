@@ -7,7 +7,7 @@ import CompletedContacts from "./components/CompletedContacts";
 import PublicationCompleted from "./components/PublicationCompleted";
 import Headers from "./components/Headers";
 import Home from "./components/Home";
-import Footers from "./components/Footers";
+import Footers from "./components/footer/Footers";
 
 import { Layout } from "antd";
 const { Content } = Layout;

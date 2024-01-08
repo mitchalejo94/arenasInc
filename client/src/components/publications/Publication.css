@@ -1,3 +1,20 @@
 .demo-loadmore-list {
   min-height: 350px;
 }
+.listOfNotes {
+  /* display: flex; */
+  /* justify-content: left; */
+  /* border: solid red; */
+}
+.note {
+  /* border: solid green; */
+  display: flex;
+  justify-content: right;
+  /* content: "•"; Unicode for bullet point */
+  /* margin-right: 5px; */
+  /* align-items: center; */
+}
+.cardButtons {
+  text-align: center;
+  margin-top: 20px;
+}

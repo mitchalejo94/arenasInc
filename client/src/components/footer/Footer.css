@@ -1,0 +1,11 @@
+.footerContainer {
+  text-align: center;
+  background-color: #001529;
+}
+.footerLogo {
+  height: 70px;
+  width: 40px;
+}
+.footerName {
+  color: rgba(255, 255, 255, 0.65);
+}

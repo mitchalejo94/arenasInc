@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { List, Card, Button, Input } from "antd";
 
 function PublicationCompleted() {
   let { id } = useParams();
@@ -9,6 +10,10 @@ function PublicationCompleted() {
   const [notes, setNotes] = useState([]);
   const [prevId, setPrevId] = useState(null);
 
+  const gridStyle = {
+    width: "100%",
+    textAlign: "center",
+  };
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken && id !== prevId) {
@@ -78,16 +83,28 @@ function PublicationCompleted() {
 
   return (
     <>
-      <h1>Completed Publication ID: {id}</h1>
-      <div>
-        <div>{contactText.name}</div>
-        <div>{contactText.email}</div>
-        <div>{contactText.message}</div>
-        <div>{contactText.phoneNumber}</div>
-        <div>{contactText.cityState}</div>
+      <Card>
+        {/* <Card title={"Contact:" {contactText.name}}> */}
+        <Card.Grid hoverable={false} style={gridStyle}>
+          Contact: {contactText.name}
+        </Card.Grid>
 
-        <button onClick={handleDelete}>Delete Publication</button>
-        <button onClick={transferButton}>Mark as Active</button>
+        <Card.Grid hoverable={false} style={gridStyle}>
+          Message: {contactText.message}
+        </Card.Grid>
+        <Card.Grid hoverable={false} style={gridStyle}>
+          City and State: {contactText.cityState}
+        </Card.Grid>
+        <Card.Grid hoverable={false} style={gridStyle}>
+          Phone: {contactText.phoneNumber}
+        </Card.Grid>
+        <Card.Grid hoverable={false} style={gridStyle}>
+          Email: {contactText.email}
+        </Card.Grid>
+      </Card>
+      <div className="cardButtons">
+        <Button onClick={handleDelete}>Delete Publication</Button>
+        <Button onClick={transferButton}>Mark as Completed</Button>
       </div>
 
       <h1>Notes Section</h1>
@@ -95,8 +112,10 @@ function PublicationCompleted() {
         {notes.map((note, key) => {
           return (
             <div key={key} className="note">
-              {note.noteBody}
-              <label> - {note.username} </label>
+              <List.Item>
+                {note.noteBody}
+                <label> - {note.username} </label>
+              </List.Item>
             </div>
           );
         })}
