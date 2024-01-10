@@ -104,7 +104,7 @@ function PublicationCompleted() {
       </Card>
       <div className="cardButtons">
         <Button onClick={handleDelete}>Delete Publication</Button>
-        <Button onClick={transferButton}>Mark as Completed</Button>
+        <Button onClick={transferButton}>Mark as Active</Button>
       </div>
 
       <h1>Notes Section</h1>

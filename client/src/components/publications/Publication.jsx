@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { List, Card, Button, Input } from "antd";
 import "./Publication.css";
@@ -112,21 +112,8 @@ function Publication() {
           };
           setNotes([...notes, noteToAdd]);
           setNewNote("");
+          // window.location.reload();
         }
-      });
-  };
-
-  const deleteNote = (id) => {
-    axios
-      .delete(`http://localhost:3003/notes/${id}`, {
-        headers: { accessToken: localStorage.getItem("accessToken") },
-      })
-      .then(() => {
-        setNotes(
-          notes.filter((val) => {
-            return val.id != id;
-          })
-        );
       });
   };
 
@@ -135,13 +122,42 @@ function Publication() {
       await axios.put(`http://localhost:3003/notes/${id}`, {
         noteBody: updatedNote,
       });
-      // setStatus(false);
+      //     .then(() => {
+      //       // window.location.reload();
+      //     });
+      //   // setStatus(false);
+      const updatedNotes = notes.map((note) => {
+        if (note.id === id) {
+          return { ...note, noteBody: updatedNote };
+        }
+        return note;
+      });
+      setNotes(updatedNotes);
     } catch (error) {
       console.error(
-        "Error updating note:",
-        error || error.message || error.response
+        "Error updating note:"
+        // error || error.message || error.response
       );
     }
+  };
+
+  const deleteNote = (id) => {
+    // Remove notes from the state
+    setNotes(notes.filter((val) => val.id !== id));
+    axios
+      .delete(`http://localhost:3003/notes/${id}`, {
+        headers: { accessToken: localStorage.getItem("accessToken") },
+      })
+      .then(() => {
+        // setNotes(
+        //   notes.filter((val) => {
+        //     return val.id != id;
+        //   })
+        // );
+      })
+      .catch((error) => {
+        console.error("Error deleting note:", error);
+      });
   };
   const handleToggle = () => {
     setStatus((prevStatus) => !prevStatus);

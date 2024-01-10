@@ -39,7 +39,7 @@ function CompletedContacts() {
             title={contact.cityState}
             bordered={false}
             style={{
-              width: 300,
+              width: "100%",
               margin: "10px",
               background: "#8d99ae",
               color: "#edf2f4",

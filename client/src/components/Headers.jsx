@@ -66,8 +66,14 @@ function Headers() {
           </Menu.Item>
         )}
         {!loggedIn && (
+          <Menu.Item key="aboutUs">
+            {/* <Link to="/aboutus">About Us </Link> */}
+            <a href="#aboutUsPage">About Us</a>
+          </Menu.Item>
+        )}
+        {!loggedIn && (
           <Menu.Item key="contactForm">
-            <Link to="/contactForm">Contact Us Form</Link>
+            <a href="#contactFormPage">Contact Us</a>
           </Menu.Item>
         )}
       </Menu>

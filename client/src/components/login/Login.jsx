@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Button } from "antd";
+import { Button, Input } from "antd";
 import "./Login.css";
 
 function Login() {
@@ -29,6 +29,9 @@ function Login() {
       });
   };
 
+  const inputStyle = {
+    width: "30%",
+  };
   return (
     <div className="loginPage">
       <h1 id="loginTitle">Administrator Login</h1>
@@ -37,7 +40,8 @@ function Login() {
       )}
       <div className="loginInput">
         <label htmlFor="message">Username:</label>
-        <input
+        <Input
+          style={inputStyle}
           type="text"
           placeholder="Username..."
           onChange={(event) => {
@@ -47,7 +51,8 @@ function Login() {
       </div>
       <div className="loginInput">
         <label htmlFor="message">Password:</label>
-        <input
+        <Input
+          style={inputStyle}
           type="password"
           placeholder="Password..."
           onChange={(event) => {

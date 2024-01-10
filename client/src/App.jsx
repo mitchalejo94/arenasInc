@@ -1,13 +1,14 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import Contact from "./components/Contact";
-import ContactForm from "./components/contactForm/ContactForm";
+// import ContactForm from "./components/homePageFiles/contactForm/ContactForm";
 import Login from "./components/login/Login";
 import Publication from "./components/publications/Publication";
 import CompletedContacts from "./components/CompletedContacts";
 import PublicationCompleted from "./components/PublicationCompleted";
 import Headers from "./components/Headers";
-import Home from "./components/Home";
+import Home from "./components/homePageFiles/Home";
 import Footers from "./components/footer/Footers";
+// import AboutUs from "./components/AboutUs";
 
 import { Layout } from "antd";
 const { Content } = Layout;
@@ -22,8 +23,9 @@ function App() {
             <div style={{ background: "#fff", padding: 24, minHeight: 280 }}>
               <Routes>
                 <Route path="/contactList" element={<Contact />}></Route>
-                <Route path="/contactForm" element={<ContactForm />}></Route>
+                {/* <Route path="/contactForm" element={<ContactForm />}></Route> */}
                 <Route path="/adminUsers/login" element={<Login />}></Route>
+                {/* <Route path="/aboutus" element={<AboutUs />}></Route> */}
                 <Route
                   path="/contactList/:id"
                   element={<Publication />}
