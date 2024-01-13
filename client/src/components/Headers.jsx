@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Layout, Menu } from "antd";
 const { Header } = Layout;
-
+import "./Header.css";
 function Headers() {
   const [authState, setAuthState] = useState({
     username: "",
@@ -25,59 +25,63 @@ function Headers() {
   };
 
   return (
-    <Header
-      style={{
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
-      <div className="demo-logo" />
-      <Menu
-        theme="dark"
-        mode="horizontal"
-        style={{
-          flex: 1,
-          minWidth: 0,
-        }}
-      >
-        {!loggedIn ? (
-          <Menu.Item key="adminLogin">
-            <Link to="/adminUsers/login">Admin Login</Link>
-          </Menu.Item>
-        ) : (
-          <Menu.Item>
-            <Link onClick={logout}>Logout</Link>
-          </Menu.Item>
-        )}
+    <>
+      <Header>
+        {/* <div className="demo-logo" /> */}
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          style={{
+            flex: 1,
+            minWidth: 0,
+          }}
+        >
+          <div className="loginLogout">
+            {!loggedIn ? (
+              <Menu.Item key="adminLogin">
+                <Link to="/adminUsers/login">Admin Login</Link>
+              </Menu.Item>
+            ) : (
+              <Menu.Item>
+                <Link onClick={logout}>Logout</Link>
+              </Menu.Item>
+            )}
+          </div>
+          {/* <div className="homeLinks"> */}
 
-        {loggedIn && (
-          <Menu.Item key="contactList">
-            <Link to="/contactList">Contact List-Active</Link>
-          </Menu.Item>
-        )}
-        {loggedIn && (
-          <Menu.Item key="contactListCompleted">
-            <Link to="/completedContacts">Contact List-Completed</Link>
-          </Menu.Item>
-        )}
-        {!loggedIn && (
-          <Menu.Item key="home">
-            <Link to="/home">Home</Link>
-          </Menu.Item>
-        )}
-        {!loggedIn && (
-          <Menu.Item key="aboutUs">
-            {/* <Link to="/aboutus">About Us </Link> */}
-            <a href="#aboutUsPage">About Us</a>
-          </Menu.Item>
-        )}
-        {!loggedIn && (
-          <Menu.Item key="contactForm">
-            <a href="#contactFormPage">Contact Us</a>
-          </Menu.Item>
-        )}
-      </Menu>
-    </Header>
+          {loggedIn && (
+            <Menu.Item key="contactList">
+              <Link to="/contactList">Contact List-Active</Link>
+            </Menu.Item>
+          )}
+
+          {loggedIn && (
+            <Menu.Item key="contactListCompleted">
+              <Link to="/completedContacts">Contact List-Completed</Link>
+            </Menu.Item>
+          )}
+
+          {!loggedIn && (
+            <Menu.Item key="home">
+              <Link to="/home">Home</Link>
+            </Menu.Item>
+          )}
+
+          {!loggedIn && (
+            <Menu.Item key="aboutUs">
+              <a href="/home#aboutUsPage">About Us</a>
+            </Menu.Item>
+          )}
+
+          {!loggedIn && (
+            <Menu.Item key="contactForm">
+              <a href="/home#contactFormPage">Contact Us</a>
+            </Menu.Item>
+          )}
+          {/* </div> */}
+        </Menu>
+      </Header>
+    </>
   );
 }
 

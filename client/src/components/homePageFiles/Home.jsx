@@ -80,7 +80,7 @@ function Home() {
           </div>
         </section>
         <section id="aboutUsPage">
-          <h1> More About ourBusiness</h1>
+          <h1> More About our Business</h1>
           <p>
             {" "}
             Long water shoob dat tungg tho heckin good boys and girls aqua doggo

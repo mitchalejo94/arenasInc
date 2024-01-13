@@ -1,0 +1,17 @@
+.titleName {
+  font-family: "Lemon", serif;
+  font-size: 40px;
+  justify-content: center;
+  outline: red;
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(to bottom, #001529, white);
+}
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
