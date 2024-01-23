@@ -60,6 +60,11 @@ function Headers() {
               <Link to="/completedContacts">Contact List-Completed</Link>
             </Menu.Item>
           )}
+          {loggedIn && (
+            <Menu.Item key="schedule">
+              <Link to="/schedule">Schedule</Link>
+            </Menu.Item>
+          )}
 
           {!loggedIn && (
             <Menu.Item key="home">

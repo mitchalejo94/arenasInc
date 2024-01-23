@@ -8,6 +8,7 @@ import Headers from "./components/Headers";
 import Home from "./components/homePageFiles/Home";
 import Footers from "./components/footer/Footers";
 import Title from "./components/Title";
+import Schedule from "./components/Schedule";
 
 import { Layout } from "antd";
 const { Content } = Layout;
@@ -37,6 +38,7 @@ function App() {
                   path="/completedContacts"
                   element={<CompletedContacts />}
                 ></Route>
+                <Route path="/schedule" element={<Schedule />}></Route>
               </Routes>
             </div>
           </Content>
