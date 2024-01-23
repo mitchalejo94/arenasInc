@@ -14,7 +14,7 @@ function Footers() {
         />
       </div>
       <div className="footerName">
-        <h2>Footer</h2>
+        <h2>Business Name</h2>
       </div>
     </Footer>
   );

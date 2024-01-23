@@ -47,21 +47,6 @@ function Home() {
               borking doggo lotsa pats mlem. Thicc I am bekom fat maximum
               borkdrive heckin good boys and girls, what a nice floof.
             </p>
-            <p>
-              Adorable doggo big ol pupper noodle horse big ol pupper, extremely
-              cuuuuuute heck. Long bois fat boi thicc floofs smol borking doggo
-              with a long snoot for pats, many pats mlem many pats. Shoob
-              maximum borkdrive pupperino bork, waggy wags pats mlem, ur givin
-              me a spook corgo. Pupper shoob doggo doggorino puggo very hand
-              that feed shibe, blop h*ck shooberino he made many woofs, shibe
-              doge thicc ur givin me a spook. Puggorino dat tungg tho heckin
-              good boys and girls waggy wags big ol, mlem most angery pupper I
-              have ever seen. Extremely cuuuuuute long doggo blop puggo, vvv.
-              Long water shoob sub woofer waggy wags heckin good boys and girls
-              heckin, pupperino heckin length boy, yapper I am bekom fat much
-              ruin diet. Doggorino thicc sub woofer fat boi heckin good boys and
-              girls big ol, heck maximum borkdrive such treat big ol.
-            </p>
           </div>
           <div style={{ textAlign: "center" }}>
             <Image.PreviewGroup
@@ -80,26 +65,6 @@ function Home() {
           </div>
         </section>
         <section id="aboutUsPage">
-          <h1> More About our Business</h1>
-          <p>
-            {" "}
-            Long water shoob dat tungg tho heckin good boys and girls aqua doggo
-            much ruin diet borking doggo, very hand that feed shibe blep very
-            jealous pupper porgo. Borkf wrinkler heckin heckin good boys and
-            girls, floofs borking doggo. Big ol shooberino maximum borkdrive
-            smol borking doggo with a long snoot for pats pupper you are doing
-            me the shock blep long water shoob, blop very hand that feed shibe
-            very jealous pupper heckin good boys and girls much ruin diet ruff.
-            Borkdrive porgo wrinkler shoob doggorino, lotsa pats very taste wow
-            smol borking doggo with a long snoot for pats. noodle horse shibe.
-            Long doggo aqua doggo heckin angery woofer shoober smol very good
-            spot, pupper big ol adorable doggo clouds. Floofs big ol floofs,
-            smol borking doggo with a long snoot for pats. Stop it fren long
-            water shoob borkf big ol pupper sub woofer, blep the neighborhood
-            pupper snoot vvv he made many woofs, clouds ur givin me a spook
-            shibe. Wow very biscit heckin angery woofer aqua doggo, blep. Vvv
-            waggy wags clouds, borking doggo.
-          </p>
           <AboutUs />
         </section>
         <section id="contactFormPage">
