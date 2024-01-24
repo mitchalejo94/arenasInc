@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import Contact from "./components/Contact";
+import Contact from "./components/contacts/Contact";
 import Login from "./components/login/Login";
-import Publication from "./components/publications/Publication";
-import CompletedContacts from "./components/CompletedContacts";
-import PublicationCompleted from "./components/PublicationCompleted";
-import Headers from "./components/Headers";
+import Publication from "./components/adminUserPages/Publication";
+import CompletedContacts from "./components/contacts/CompletedContacts";
+import PublicationCompleted from "./components/adminUserPages/PublicationCompleted";
+import Headers from "./components/header/Headers";
 import Home from "./components/homePageFiles/Home";
 import Footers from "./components/footer/Footers";
-import Title from "./components/Title";
-import Schedule from "./components/Schedule";
+import Title from "./components/header/Title";
+import Schedule from "./components/adminUserPages/Schedule";
 
 import { Layout } from "antd";
 const { Content } = Layout;
