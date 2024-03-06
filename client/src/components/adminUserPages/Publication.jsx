@@ -14,7 +14,6 @@ function Publication() {
   const [editedNote, setEditedNote] = useState("");
 
   let navigate = useNavigate();
-
   const gridStyle = {
     width: "100%",
     textAlign: "center",
@@ -48,7 +47,7 @@ function Publication() {
     } else {
       navigate("/adminUsers/login");
     }
-  }, [id, navigate]);
+  }, [id, navigate, newNote]);
 
   //Contact Post ======
   const handleDelete = async () => {
@@ -122,14 +121,12 @@ function Publication() {
       await axios.put(`http://localhost:3003/notes/${id}`, {
         noteBody: updatedNote,
       });
-      //     .then(() => {
-      //       // window.location.reload();
-      //     });
-      //   // setStatus(false);
+
       const updatedNotes = notes.map((note) => {
         if (note.id === id) {
           return { ...note, noteBody: updatedNote };
         }
+
         return note;
       });
       setNotes(updatedNotes);
